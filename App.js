@@ -39,31 +39,26 @@ const App = () => {
 
 const styles = StyleSheet.create({
   body: {
-    // flex: 1, //fill the entire screen
-    width: '100%',
-    height: '100%', // same job as flex 1
-    flexDirection: 'column-reverse', // arrange the views in a column
+    flex: 1,
+    flexDirection: 'column',
     backgroundColor: '#ffffff',
-    alignItems: 'center',
+    alignItems: 'stretch',
     justifyContent: 'center',
   },
   view1: {
-    width: 200,
-    height: 100,
+    flex:1,
     backgroundColor: '#f00',
     alignItems: 'center',
     justifyContent: 'center',
   },
   view2: {
-    width: 200,
-    height: 100,
+    flex:1,
     backgroundColor: '#3300ff',
     alignItems: 'center',
     justifyContent: 'center',
   },
   view3: {
-    width: 200,
-    height: 100,
+    flex:1,
     backgroundColor: '#48ff00',
     alignItems: 'center',
     justifyContent: 'center',

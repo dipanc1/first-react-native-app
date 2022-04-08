@@ -12,10 +12,8 @@ import {
   Text,
   View,
   TextInput,
-  // TouchableOpacity,
-  TouchableWithoutFeedback,
-  // TouchableHighlight,
-  // Button,
+  // Alert,
+  ToastAndroid,
 } from 'react-native';
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 import { useState } from 'react/cjs/react.development';
@@ -27,6 +25,44 @@ const App = () => {
   const [name, setName] = useState('');
   const [submit, setSubmit] = useState(false);
 
+  const onPressHandler = () => {
+    if (name.length > 3) {
+      setSubmit(!submit);
+    }
+    else {
+      // Alert.alert('Warning', 'it must be longer than 3 characters', [
+      //   {
+      //     text: 'Later',
+      //     onPress: () => console.warn('later pressed'),
+      //   },
+      //   {
+      //     text: 'Cancel',
+      //     onPress: () => console.warn('cancel pressed'),
+      //   },
+      //   {
+      //     text: 'Ok',
+      //     onPress: () => console.warn('ok pressed'),
+      //   },
+      // ], {
+      //   cancelable: true,
+      //   onDismiss: () => console.warn('dismissed'),
+      // });
+
+      // ToastAndroid.show(
+      //   'it must be longer than 3 characters',
+      //   ToastAndroid.LONG
+      // );
+      ToastAndroid.showWithGravityAndOffset(
+        'it must be longer than 3 characters',
+        ToastAndroid.SHORT,
+        ToastAndroid.TOP,
+        0,
+        230
+      );
+    }
+  };
+  // can have three button ina NativeIntentAndroid, positiv negative, neurtal
+
   return (
     <View style={styles.body}>
       <Text style={styles.text}>Naam Likh Bai??</Text>
@@ -35,48 +71,20 @@ const App = () => {
         placeholder="Naam"
         onChangeText={(text) => setName(text)}
       />
-
-      {/* similar to buttons in react native */}
-      {/* <TouchableOpacity
-      activeOpacity={1}
-        style={styles.button}
-        onPress={() => setSubmit(!submit)}
-      >
-        <Text style={styles.text1}>{submit ? 'Clear' : 'Submit'}</Text>
-      </TouchableOpacity> */}
-      {/* <TouchableHighlight
-      underlayColor={'#fff'}
-        activeOpacity={1}
-        style={styles.button}
-        onPress={() => setSubmit(!submit)}
-      >
-        <Text style={styles.text1}>{submit ? 'Clear' : 'Submit'}</Text>
-      </TouchableHighlight> */}
-      {/* <TouchableWithoutFeedback
-        style={styles.button}
-        onPress={() => setSubmit(!submit)}
-      >
-        <Text style={styles.text1}>{submit ? 'Clear' : 'Submit'}</Text>
-      </TouchableWithoutFeedback> */}
-      <Pressable onPress={() => setSubmit(!submit)}
-        style={({ pressed }) => [styles.button, pressed && { backgroundColor: '#fff' }]}
-        delayLongPress={500}
-        android_ripple={{
-          color: '#ff0000',
-          borderless: true,
-        }}
-        hitslop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+      <Pressable
+        onPress={onPressHandler}
+      // style={({ pressed }) => [{ backgroundColor: pressed ? '#fff' : '#000' }]}
+      // delayLongPress={500}
+      // android_ripple={{
+      //   color: '#ff0000',
+      //   borderless: true,
+      // }}
+      // hitslop={{ top: 10, bottom: 10, left: 10, right: 10 }}
       >
         <View style={styles.button}>
           <Text style={styles.text1}>{submit ? 'Clear' : 'Submit'}</Text>
         </View>
       </Pressable>
-      {/* <Button
-        title={submit ? 'Hide' : 'Show'}
-        onPress={() => setSubmit(!submit)}
-      disabled={name === ''}
-      color={name === '' ? 'red' : 'green'}
-      /> */}
       {submit ?
         <Text style={styles.text}>Tera Naam Hai {name}</Text>
         : null

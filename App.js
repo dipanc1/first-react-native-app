@@ -58,7 +58,15 @@ const App = () => {
       >
         <Text style={styles.text1}>{submit ? 'Clear' : 'Submit'}</Text>
       </TouchableWithoutFeedback> */}
-      <Pressable onPress={() => setSubmit(!submit)}>
+      <Pressable onPress={() => setSubmit(!submit)}
+        style={({ pressed }) => [styles.button, pressed && { backgroundColor: '#fff' }]}
+        delayLongPress={500}
+        android_ripple={{
+          color: '#ff0000',
+          borderless: true,
+        }}
+        hitslop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+      >
         <View style={styles.button}>
           <Text style={styles.text1}>{submit ? 'Clear' : 'Submit'}</Text>
         </View>

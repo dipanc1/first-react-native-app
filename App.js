@@ -12,8 +12,7 @@ import {
   Text,
   View,
   TextInput,
-  // Alert,
-  ToastAndroid,
+  Modal,
 } from 'react-native';
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 import { useState } from 'react/cjs/react.development';
@@ -24,47 +23,43 @@ const App = () => {
 
   const [name, setName] = useState('');
   const [submit, setSubmit] = useState(false);
+  const [modal, setModal] = useState(false);
 
   const onPressHandler = () => {
     if (name.length > 3) {
       setSubmit(!submit);
     }
     else {
-      // Alert.alert('Warning', 'it must be longer than 3 characters', [
-      //   {
-      //     text: 'Later',
-      //     onPress: () => console.warn('later pressed'),
-      //   },
-      //   {
-      //     text: 'Cancel',
-      //     onPress: () => console.warn('cancel pressed'),
-      //   },
-      //   {
-      //     text: 'Ok',
-      //     onPress: () => console.warn('ok pressed'),
-      //   },
-      // ], {
-      //   cancelable: true,
-      //   onDismiss: () => console.warn('dismissed'),
-      // });
-
-      // ToastAndroid.show(
-      //   'it must be longer than 3 characters',
-      //   ToastAndroid.LONG
-      // );
-      ToastAndroid.showWithGravityAndOffset(
-        'it must be longer than 3 characters',
-        ToastAndroid.SHORT,
-        ToastAndroid.TOP,
-        0,
-        230
-      );
+      setModal(true);
     }
   };
   // can have three button ina NativeIntentAndroid, positiv negative, neurtal
 
   return (
     <View style={styles.body}>
+      <Modal
+        visible={modal}
+        transparent
+        onRequestClose={() => {
+          setModal(false);
+        }}
+        animationType="fade"
+      >
+        <View style={styles.centered_view}>
+          <View style={styles.warning_modal}>
+            <Text style={styles.text}>Please enter a name longer than 3 characters</Text>
+            <Pressable
+              style={styles.warning_button}
+              onPress={() => setModal(false)}
+              android_ripple={{
+                color: '#ff0000',
+              }}
+              >
+              <Text style={styles.text}>OK</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
       <Text style={styles.text}>Naam Likh Bai??</Text>
       <TextInput
         style={styles.input}
@@ -73,13 +68,6 @@ const App = () => {
       />
       <Pressable
         onPress={onPressHandler}
-      // style={({ pressed }) => [{ backgroundColor: pressed ? '#fff' : '#000' }]}
-      // delayLongPress={500}
-      // android_ripple={{
-      //   color: '#ff0000',
-      //   borderless: true,
-      // }}
-      // hitslop={{ top: 10, bottom: 10, left: 10, right: 10 }}
       >
         <View style={styles.button}>
           <Text style={styles.text1}>{submit ? 'Clear' : 'Submit'}</Text>
@@ -116,6 +104,26 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 20,
     color: '#000000',
+  },
+  centered_view: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#00000099',
+  },
+  warning_modal: {
+    backgroundColor: '#ffffff',
+    width: 300,
+    height: 100,
+    borderRadius: 10,
+  },
+  warning_button: {
+    backgroundColor: '#f60808',
+    width: 300,
+    height: 100,
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

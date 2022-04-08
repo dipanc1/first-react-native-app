@@ -12,7 +12,12 @@ import {
   Text,
   View,
   TextInput,
+  // TouchableOpacity,
+  TouchableWithoutFeedback,
+  // TouchableHighlight,
+  // Button,
 } from 'react-native';
+import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 import { useState } from 'react/cjs/react.development';
 
 
@@ -20,23 +25,54 @@ import { useState } from 'react/cjs/react.development';
 const App = () => {
 
   const [name, setName] = useState('');
+  const [submit, setSubmit] = useState(false);
 
   return (
     <View style={styles.body}>
       <Text style={styles.text}>Naam Likh Bai??</Text>
       <TextInput
-      style={styles.input}
-      placeholder="Naam"
-      value={name}
-      onChangeText={(text) => setName(text)}
-      // keyboardType="numeric"
-      keyboardType="default" // many types numeric , phone pad etc.
-      multiline // to make it more than one line
-      maxLength={2} // to limit the number of characters
-      editable={true} // to make it editable
-      secureTextEntry // to make it secure
+        style={styles.input}
+        placeholder="Naam"
+        onChangeText={(text) => setName(text)}
       />
-      <Text style={styles.text}>Tera Naam Hai {name}</Text>
+
+      {/* similar to buttons in react native */}
+      {/* <TouchableOpacity
+      activeOpacity={1}
+        style={styles.button}
+        onPress={() => setSubmit(!submit)}
+      >
+        <Text style={styles.text1}>{submit ? 'Clear' : 'Submit'}</Text>
+      </TouchableOpacity> */}
+      {/* <TouchableHighlight
+      underlayColor={'#fff'}
+        activeOpacity={1}
+        style={styles.button}
+        onPress={() => setSubmit(!submit)}
+      >
+        <Text style={styles.text1}>{submit ? 'Clear' : 'Submit'}</Text>
+      </TouchableHighlight> */}
+      {/* <TouchableWithoutFeedback
+        style={styles.button}
+        onPress={() => setSubmit(!submit)}
+      >
+        <Text style={styles.text1}>{submit ? 'Clear' : 'Submit'}</Text>
+      </TouchableWithoutFeedback> */}
+      <Pressable onPress={() => setSubmit(!submit)}>
+        <View style={styles.button}>
+          <Text style={styles.text1}>{submit ? 'Clear' : 'Submit'}</Text>
+        </View>
+      </Pressable>
+      {/* <Button
+        title={submit ? 'Hide' : 'Show'}
+        onPress={() => setSubmit(!submit)}
+      disabled={name === ''}
+      color={name === '' ? 'red' : 'green'}
+      /> */}
+      {submit ?
+        <Text style={styles.text}>Tera Naam Hai {name}</Text>
+        : null
+      }
     </View>
   );
 };
@@ -50,6 +86,10 @@ const styles = StyleSheet.create({
   text: {
     color: '#000000',
     fontSize: 25,
+  },
+  text1: {
+    color: '#fe0000',
+    fontSize: 15,
   },
   input: {
     width: 200,

@@ -44,6 +44,7 @@ const App = () => {
           setModal(false);
         }}
         animationType="fade"
+        hardwareAccelerated
       >
         <View style={styles.centered_view}>
           <View style={styles.warning_modal}>

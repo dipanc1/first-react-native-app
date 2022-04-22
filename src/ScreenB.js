@@ -39,6 +39,6 @@ const styles = StyleSheet.create({
         color: '#fe0000',
         fontSize: 35,
     },
-}); 
+});
 
 export default ScreenB;
